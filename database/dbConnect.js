@@ -7,7 +7,7 @@ dotenv.config({
 const dbConnection=async()=>{
 
     try {
-        const connect=await mongoose.connect(process.env.MONGODB_URL)
+        const connect=await mongoose.connect("mongodb+srv://nikhil:nikhil@foodspark.orwgx.mongodb.net/foodspark?retryWrites=true&w=majority&appName=FoodSpark")
 
         if (!connect) {
             throw new Error("Connect Failed",connect)

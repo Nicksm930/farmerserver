@@ -1,12 +1,15 @@
 import {v2 as cloudinary} from 'cloudinary';
 import fs from 'fs';// File System
+const CLOUD_NAME="dvfmphizq", 
+const CLOUD_API_KEY="738533975168823",
+const CLOUD_API_SECRET="Z3AEeGOcxGThuEO33Di1tPQr2mk"
 
 //Imp: unlink in filesystem
 //cloudinary configuration
 cloudinary.config({ 
-    cloud_name: process.env.CLOUD_NAME, 
-    api_key: process.env.CLOUD_API_KEY, 
-    api_secret: process.env.CLOUD_API_SECRET // Click 'View Credentials' below to copy your API secret
+    cloud_name: CLOUD_NAME, 
+    api_key: CLOUD_API_KEY, 
+    api_secret: CLOUD_API_SECRET // Click 'View Credentials' below to copy your API secret
 });
 
 //function to upload file which will take file path as argument..once successfully uploaded on cloud wwe will unlink it from server
