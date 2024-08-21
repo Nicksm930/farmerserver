@@ -4,7 +4,7 @@ import dbConnection from '../database/dbConnect.js'
 dotenv.config({
     path:"./.env.dev"
 })
-const port=process.env.PORT || 8000
+const port=3000
 console.log("In index.js")
 try {
     if (await dbConnection()) {
