@@ -1,7 +1,7 @@
 import {v2 as cloudinary} from 'cloudinary';
 import fs from 'fs';// File System
-const CLOUD_NAME="dvfmphizq", 
-const CLOUD_API_KEY="738533975168823",
+const CLOUD_NAME="dvfmphizq"
+const CLOUD_API_KEY="738533975168823"
 const CLOUD_API_SECRET="Z3AEeGOcxGThuEO33Di1tPQr2mk"
 
 //Imp: unlink in filesystem
