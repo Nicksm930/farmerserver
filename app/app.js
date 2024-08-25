@@ -6,7 +6,9 @@ import productRouter from '../router/product.router.js';
 const app=express()
 
 
-app.use(cors());
+app.use(cors(
+    
+));
 app.use(express.json());
 //Product Endpoint
 app.use("/api/v1/products",productRouter)

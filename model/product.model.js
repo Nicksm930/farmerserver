@@ -69,6 +69,10 @@ const productSchema=new mongoose.Schema({
   },
   availability: {
     type: Boolean
+  },
+  productOwner:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"User"
   }
 }
 
