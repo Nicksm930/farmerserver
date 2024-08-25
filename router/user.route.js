@@ -3,9 +3,9 @@ import { loginUser, logoutUser, registerUser } from "../controllers/user.control
 import {upload} from '../middleware/multer.middleware.js'
 import  {verifyJWT}  from "../middleware/auth.middleware.js";
 //Imp:Uplaod .fields() has array of feilds
-const router=Router();
+const userRouter=Router();
 
-router.route("/register").post(
+userRouter.route("/register").post(
     upload.fields([{
         name:"avatar",
         maxCount:1
@@ -15,9 +15,9 @@ router.route("/register").post(
     }]),
     registerUser)
 
-router.route("/login").post(loginUser);
+userRouter.route("/login").post(loginUser);
 
-router.route("/logout").post(verifyJWT,logoutUser);
+userRouter.route("/logout").post(verifyJWT,logoutUser);
 
 
-export default router
+export default userRouter
