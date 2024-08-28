@@ -46,7 +46,7 @@ const userSchema=new mongoose.Schema({
     recentProduct:[
         {
             type:mongoose.Schema.Types.ObjectId,
-            ref:"Video"
+            ref:"Product"
 
         }
     ],
@@ -54,7 +54,7 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:[true,"Password is Required"]
     },
-    refreshToken:{
+    refereshToken:{
         type:String
     }
 

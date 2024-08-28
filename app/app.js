@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import productRouter from '../router/product.router.js';
 import userRouter from '../router/user.route.js';
+import cookieParser from 'cookie-parser';
 // import { getAllProduct } from '../controller/product.controller';
 
 const app=express()
@@ -10,6 +11,7 @@ const app=express()
 app.use(cors(
     
 ));
+app.use(cookieParser());
 app.use(express.json());
 //User Endpoints
 app.use("/api/v1/users",userRouter)

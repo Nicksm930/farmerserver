@@ -3,6 +3,8 @@ import {ApiError} from '../utils/apiError.js'
 import {User} from '../model/user.model.js'
 import {uploadOnCloudinary} from '../utils/cloudinary.js'
 import {ApiResponse} from '../utils/apiResponse.js'
+import { Product } from "../model/product.model.js";
+// import { Types } from "mongoose";
 
 const generateAccessAndRefereshToken=async(userId)=>{
 
@@ -90,7 +92,7 @@ const loginUser=asyncHandler(async(req,res)=>{
     const {username,email,password}=req.body;
 
     // Find User based on username or email or both
-    if(!username || !email){
+    if(!email){
         throw new ApiError(400,"username or email is required")
     }
     const user=await User.findOne({
@@ -106,9 +108,9 @@ const loginUser=asyncHandler(async(req,res)=>{
     if(!isPasswordValid){
         throw new ApiError(401,"Invalid user credentials")
     }
-
+    
     const {accessToken, refereshToken}=await generateAccessAndRefereshToken(user._id);
-
+    console.log(accessToken)
    
     const loggedInUser=await User.findById(user._id).select("-password -refreshToken")
 
@@ -121,7 +123,7 @@ const loginUser=asyncHandler(async(req,res)=>{
 
     return res.status(200)
     .cookie("accessToken",accessToken,options)
-    .cookie("refreshToken",refereshToken,options)
+    .cookie("refereshToken",refereshToken,options)
     .json(new ApiResponse(
         200,
         {
@@ -273,11 +275,52 @@ const updateUsercoverImage=asyncHandler(async(req,res)=>{
     )
 
 })
+
+const getAllUsers=asyncHandler(async(req,res)=>{
+
+    const users=await User.find();
+
+    if(users.length < 0){
+
+        throw new ApiError(201,"No Users Available")
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200,users,"Users fetched successfully")
+    )
+})
+const getAllUserProducts=asyncHandler(async(req,res)=>{
+
+        const user=await User.findById(req.user._id);
+
+        if(!user){
+            throw new ApiError(201,"User Not FOund")
+        }
+
+        const products=user.recentProduct;
+        console.log("all ids",products);
+        if(products.length < 0){
+            throw new ApiError(201,"No Products to display")
+        }
+        //  const productIds=products.map(id => Types.ObjectId(id));
+
+         const allProducts=await Product.find({_id:{$in:products}});
+
+        
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                allProducts,
+                "User Products Fetched Successfully"
+            )
+        )
+})
+
 // const registerUser=(req,res)=>{
 //     res.status(200).json({
 //         message:"ok"
 //     })
 // }
 export {registerUser,loginUser,logoutUser,changeUserPassword,getCurrentUser,updateUserDetails,
-    updateUserAvatar,updateUsercoverImage
+    updateUserAvatar,updateUsercoverImage,getAllUsers,getAllUserProducts
 }
